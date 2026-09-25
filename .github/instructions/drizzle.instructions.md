@@ -55,6 +55,15 @@ export async function getAllGameIds(db: Database): Promise<number[]> {
 - Map raw rows to the app-facing `Game`/`Publisher`/`Category` types in one place; don't leak Drizzle row shapes into components.
 - Keep ordering/lookup logic in `games.ts`, not in pages.
 
+### Comments and Public APIs
+
+- Every exported function in `db/` and `src/lib/` requires a TSDoc/JSDoc comment.
+- The comment must state the function's purpose, describe every parameter (including the injectable `db` argument), and describe the return value. Mention meaningful side effects such as database writes or file output.
+- Comment the reason for non-obvious SQL, ordering, transformations, or compatibility work. Do not add comments that merely narrate the next statement.
+- Update or remove comments whenever the implementation they describe changes.
+
+Use explicit parameter and return types for exported and internal functions. ESLint enforces explicit public module-boundary types for this scope; `npm run typecheck` verifies the complete data layer.
+
 ## Determinism
 
 Seed-derived values must be reproducible across builds. Derive star ratings from a stable hash of the title (`ratingFromTitle`) — **never** `Math.random()`.
