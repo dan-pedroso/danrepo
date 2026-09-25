@@ -53,6 +53,8 @@ Before you can run and test the application locally, you'll need to install:
 
 - Define tables in `db/schema.ts`; generate a migration with `npm run db:generate` after schema changes
 - Use type hints for all function parameters and return values
+- Add a TSDoc/JSDoc comment to every exported function in `db/` and `src/lib/`. Describe its purpose, every parameter (including injectable `db` arguments), and return value.
+- Comment the intent behind non-obvious decisions; do not restate code, and update or remove comments when related code changes.
 - Keep data-access helpers in `src/lib/` with an injectable `db` argument
 - Add or update Vitest tests for any data-layer change
 - Run tests before submitting: `npm run test:unit`
@@ -61,10 +63,19 @@ Before you can run and test the application locally, you'll need to install:
 ### Frontend (Astro)
 
 - Build UI as `.astro` pages and components; query data in frontmatter (static output)
+- Document the `Props` interface in every reusable component, including prop purpose, requiredness, and defaults
+- Comment why non-obvious component or build-time logic exists rather than narrating markup
 - Follow the dark theme using Tailwind CSS utility classes
 - Add `data-testid` attributes to interactive elements for testing
 - Run E2E tests before submitting: `npm run test:e2e`
    - All tests must pass
+
+### TypeScript Formatting
+
+- Use two-space indentation, trailing commas in multiline structures, single quotes, and semicolons.
+- Prefer `type` imports for type-only dependencies and keep imports at the top of the file.
+- Use explicit parameter and return types, especially for public functions. ESLint enforces explicit public module-boundary types in `db/` and `src/lib/`.
+- Run `npm run lint` through the `quality-checks` skill before submitting.
 
 ## Submitting a Pull Request
 
